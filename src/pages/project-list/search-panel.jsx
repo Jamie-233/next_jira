@@ -1,21 +1,6 @@
-import { useState, useEffect } from 'react';
+import React from 'react';
 
-const SearchPanel = () => {
-    const [params, setParams] = useState({
-        name: '',
-        personId: '',
-    });
-
-    const [users, setUsers] = useState([]);
-    const [list, setList] = useState([]); // 状态提升
-
-    useEffect(() => {
-        fetch('').then(async response => {
-            if(response.ok) {
-                setList(await response.json())
-            }
-        })
-    }, [params])
+const SearchPanel = ({ users, params, setParams }) => {
 
     // setParams(Object.assign({}, params, {name: e.target.value}));
 
@@ -32,7 +17,7 @@ const SearchPanel = () => {
                 })}>
                     <option value={''}>选择项</option>
                     {
-                        users.map(user => <option value={user.id}>{user.name}</option>)
+                        users.map(user => <option key={user.id} value={user.id}>{user.name}</option>)
                     }
                 </select>
             </div>
