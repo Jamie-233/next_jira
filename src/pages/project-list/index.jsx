@@ -1,7 +1,6 @@
-import React from 'react';
 import { useEffect, useState } from 'react';
 import { stringify } from 'qs';
-import { cleanObject } from 'utils/index';
+import { useMount, useDebounce, cleanObject } from 'utils/index';
 import List from './list';
 import SearchPanel from './search-panel';
 
@@ -15,21 +14,24 @@ const ProjectList = () => {
         personId: '',
     });
 
-    useEffect(() => {
-        fetch(`${apiUrl}/projects?${stringify(cleanObject(params))}`).then(async response => {
-            if(response.ok) {
-                setList(await response.json());
-            }
-        })
-    }, [params])
+    const debounceParams = useDebounce(params, 1000);
 
     useEffect(() => {
+        fetch(`${apiUrl}/projects?${stringify(cleanObject(debounceParams))}`)
+            .then(async response => {
+                if(response.ok) {
+                    setList(await response.json());
+                }
+            })
+    }, [debounceParams])
+
+    useMount(() => {
         fetch(`${apiUrl}/users`).then(async response => {
             if(response.ok) {
                 setUsers(await response.json());
             }
         })
-    }, [])
+    })
 
     return (
         <div>

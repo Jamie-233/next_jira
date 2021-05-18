@@ -1,4 +1,13 @@
+import { useState, useEffect } from "react";
+
 export const isFalsy = (value) => (value === 0 ? false : !value);
+
+export const useMount = (cb) => {
+  useEffect(() => {
+    cb();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+};
 
 export const cleanObject = (object) => {
   const result = { ...object };
@@ -11,4 +20,15 @@ export const cleanObject = (object) => {
   });
 
   return result;
+};
+
+export const useDebounce = (value, delay) => {
+  const [debounceValue, setDebounceValue] = useState(value);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => setDebounceValue(value), delay);
+    return () => clearTimeout(timeout);
+  }, [value, delay]);
+
+  return debounceValue;
 };

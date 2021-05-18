@@ -1,8 +1,4 @@
-import React from 'react';
-
 const SearchPanel = ({ users, params, setParams }) => {
-
-    // setParams(Object.assign({}, params, {name: e.target.value}));
 
     return (
         <form>

@@ -3,8 +3,8 @@ const List = ({ users, list }) => {
         <table>
             <thead>
                 <tr>
-                    <th>name</th>
-                    <th>owner</th>
+                    <th>Name</th>
+                    <th>Owner</th>
                 </tr>
             </thead>
             <tbody>
