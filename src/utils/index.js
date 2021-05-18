@@ -4,10 +4,11 @@ export const cleanObject = (object) => {
   const result = { ...object };
 
   Object.keys(result).forEach((key) => {
-    const value = object[key];
+    const value = result[key];
     if (isFalsy(value)) {
       delete result[key];
     }
   });
+
   return result;
 };

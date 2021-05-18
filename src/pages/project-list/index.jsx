@@ -1,5 +1,7 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
+import { stringify } from 'qs';
+import { cleanObject } from 'utils/index';
 import List from './list';
 import SearchPanel from './search-panel';
 
@@ -14,8 +16,7 @@ const ProjectList = () => {
     });
 
     useEffect(() => {
-        console.log('params', params);
-        fetch(`${apiUrl}/projects?name=${params.name}&personId=${params.personId}`).then(async response => {
+        fetch(`${apiUrl}/projects?${stringify(cleanObject(params))}`).then(async response => {
             if(response.ok) {
                 setList(await response.json());
             }
