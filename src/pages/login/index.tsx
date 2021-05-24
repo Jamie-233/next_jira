@@ -5,7 +5,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
 const Login = () => {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log("event", event);
+
     const username = (event.currentTarget.elements[0] as HTMLInputElement)
       .value;
     const password = (event.currentTarget.elements[1] as HTMLInputElement)
@@ -22,7 +22,7 @@ const Login = () => {
       body: JSON.stringify(param),
     }).then(async (response) => {
       if (response.ok) {
-        console.log("oks");
+        console.log("ok");
       }
     });
   };

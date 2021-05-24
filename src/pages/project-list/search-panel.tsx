@@ -10,6 +10,7 @@ interface SearchPanelProps {
 export interface Users {
   id: string;
   name: string;
+  token: string;
   email: string;
   title: string;
   organization: string;
