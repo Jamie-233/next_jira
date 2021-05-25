@@ -1,13 +1,13 @@
-// import ProjectList from "pages/project-list";
-import LoginPage from "pages/login";
-
+import { useAuth } from "context/auth-context";
+import { AuthenicatedApp } from "authenicated-app";
+import { UnAuthenicatedApp } from "unauthenicated-app";
 import "App.css";
 
 function App() {
+  const { user } = useAuth();
   return (
     <div className="App">
-      <LoginPage />
-      {/* <ProjectList /> */}
+      {user ? <AuthenicatedApp /> : <UnAuthenicatedApp />}
     </div>
   );
 }

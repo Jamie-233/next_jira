@@ -6,7 +6,7 @@ import SearchPanel from "./search-panel";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
-const ProjectList = () => {
+export const ProjectList = () => {
   const [users, setUsers] = useState([]);
   const [list, setList] = useState([]);
   const [params, setParams] = useState({
@@ -41,5 +41,3 @@ const ProjectList = () => {
     </div>
   );
 };
-
-export default ProjectList;

@@ -1,8 +1,9 @@
 import { FormEvent } from "react";
+import { useAuth } from "context/auth-context";
 
-const apiUrl = process.env.REACT_APP_API_URL;
+export const LoginPage = () => {
+  const { login } = useAuth();
 
-const Login = () => {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -11,20 +12,6 @@ const Login = () => {
     const password = (event.currentTarget.elements[1] as HTMLInputElement)
       .value;
     login({ username, password });
-  };
-
-  const login = (param: { username: string; password: string }) => {
-    fetch(`${apiUrl}/login`, {
-      method: "post",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(param),
-    }).then(async (response) => {
-      if (response.ok) {
-        console.log("ok");
-      }
-    });
   };
 
   return (
@@ -41,5 +28,3 @@ const Login = () => {
     </form>
   );
 };
-
-export default Login;

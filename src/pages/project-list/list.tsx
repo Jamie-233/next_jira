@@ -1,8 +1,8 @@
-import { Users } from "./search-panel";
+import { User } from "./search-panel";
 
 interface ListProps {
   list: Project[];
-  users: Users[];
+  users: User[];
 }
 
 interface Project {

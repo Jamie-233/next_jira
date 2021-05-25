@@ -1,5 +1,5 @@
 interface SearchPanelProps {
-  users: Users[];
+  users: User[];
   params: {
     name: string;
     personId: string;
@@ -7,7 +7,7 @@ interface SearchPanelProps {
   setParams: (params: SearchPanelProps["params"]) => void;
 }
 
-export interface Users {
+export interface User {
   id: string;
   name: string;
   token: string;
