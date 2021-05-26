@@ -27,9 +27,9 @@ export const login = (param: { username: string; password: string }) => {
 
 export const register = (param: { username: string; password: string }) => {
   return fetch(`${apiUrl}/register`, {
-    method: "post",
+    method: "POST",
     headers: {
-      "Content-type": "application/json",
+      "Content-Type": "application/json",
     },
     body: JSON.stringify(param),
   }).then(async (response) => {
