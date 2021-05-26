@@ -1,3 +1,5 @@
+import { Input, Select } from "antd";
+
 interface SearchPanelProps {
   users: User[];
   params: {
@@ -20,7 +22,7 @@ const SearchPanel = ({ users, params, setParams }: SearchPanelProps) => {
   return (
     <form>
       <div>
-        <input
+        <Input
           type="text"
           value={params.name}
           onChange={(env) =>
@@ -30,22 +32,22 @@ const SearchPanel = ({ users, params, setParams }: SearchPanelProps) => {
             })
           }
         />
-        <select
+        <Select
           value={params.personId}
-          onChange={(env) =>
+          onChange={(value) =>
             setParams({
               ...params,
-              personId: env.target.value,
+              personId: value,
             })
           }
         >
-          <option value={""}>选择项</option>
+          <Select.Option value={""}>选择项</Select.Option>
           {users.map((user) => (
-            <option key={user.id} value={user.id}>
+            <Select.Option key={user.id} value={user.id}>
               {user.name}
-            </option>
+            </Select.Option>
           ))}
-        </select>
+        </Select>
       </div>
     </form>
   );
