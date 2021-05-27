@@ -20,17 +20,13 @@ export const LoginPage = () => {
         name="username"
         rules={[{ required: true, message: "username is required" }]}
       >
-        <Input placeholder="Please input username" type="text" id="username" />
+        <Input placeholder="username" type="text" id="username" />
       </Form.Item>
       <Form.Item
         name="password"
         rules={[{ required: true, message: "password is required" }]}
       >
-        <Input
-          placeholder="Please input password"
-          type="password"
-          id="password"
-        />
+        <Input placeholder="password" type="password" id="password" />
       </Form.Item>
       <Form.Item>
         <LongButton htmlType="submit" type="primary">
