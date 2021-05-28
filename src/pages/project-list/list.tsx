@@ -1,4 +1,5 @@
 import { Table } from "antd";
+import dayjs from "dayjs";
 import { User } from "./search-panel";
 
 interface ListProps {
@@ -8,9 +9,10 @@ interface ListProps {
 
 interface Project {
   id: string;
-  name: string;
-  personId: string;
   pin: boolean;
+  name: string;
+  created: number;
+  personId: string;
   organization: string;
 }
 
@@ -23,6 +25,23 @@ const List = ({ users, list }: ListProps) => {
           title: "Name",
           dataIndex: "name",
           sorter: (a, b) => a.name.localeCompare(b.name), // sort chinese character
+        },
+        {
+          title: "Organization",
+          dataIndex: "organization",
+        },
+        {
+          title: "CreateTime",
+          dataIndex: "created",
+          render(value, project) {
+            return (
+              <span>
+                {project.created
+                  ? dayjs(value).format("YYYY-MM-DD HH:mm:ss")
+                  : ""}
+              </span>
+            );
+          },
         },
         {
           title: "Owner",
