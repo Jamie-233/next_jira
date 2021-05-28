@@ -19,6 +19,7 @@ interface Project {
 const List = ({ users, list }: ListProps) => {
   return (
     <Table
+      rowKey={"id"}
       pagination={false}
       columns={[
         {
@@ -45,9 +46,10 @@ const List = ({ users, list }: ListProps) => {
         },
         {
           title: "Owner",
+          dataIndex: "owner",
           render(value, project) {
             return (
-              <span>
+              <span key={project.personId}>
                 {users.find((user) => user.id === project.personId)?.name ||
                   "未知"}
               </span>
