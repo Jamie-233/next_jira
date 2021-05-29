@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { RegisterPage } from "unauthenicated-app/register";
 import { LoginPage } from "unauthenicated-app/login";
-import { Button, Card, Divider } from "antd";
+import { Button, Card, Divider, Typography } from "antd";
 import styled from "@emotion/styled";
 import logo from "assets/logo.svg";
 import left from "assets/left.svg";
@@ -9,6 +9,7 @@ import right from "assets/right.svg";
 
 export const UnAuthenicatedApp = () => {
   const [isRegister, setIsRegister] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
 
   return (
     <Container>
@@ -16,10 +17,19 @@ export const UnAuthenicatedApp = () => {
       <Background />
       <ShadowCard>
         <Title>{isRegister ? "Sign up" : "Sing in"}</Title>
-        {isRegister ? <RegisterPage /> : <LoginPage />}
+        {error ? (
+          <AlertError>
+            <Typography.Text type={"danger"}>{error.message}</Typography.Text>
+          </AlertError>
+        ) : null}
+        {isRegister ? (
+          <RegisterPage onError={setError} />
+        ) : (
+          <LoginPage onError={setError} />
+        )}
         <Divider />
         <LongButton type="link" onClick={() => setIsRegister(!isRegister)}>
-          Toogle to {isRegister ? "Sing in" : "Sign up"}
+          {isRegister ? "Sing in" : "Sign up"}
         </LongButton>
       </ShadowCard>
     </Container>
@@ -69,4 +79,8 @@ const Title = styled.h2`
   text-align: center;
   margin-bottom: 2.4rem;
   color: rgb(94, 108, 132);
+`;
+
+const AlertError = styled.div`
+  text-align: center;
 `;
