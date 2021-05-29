@@ -22,7 +22,7 @@ const SearchPanel = ({ users, params, setParams }: SearchPanelProps) => {
     <Form style={{ marginBottom: "3.2rem" }} layout={"inline"}>
       <Form.Item>
         <Input
-          type="text"
+          type={"text"}
           value={params.name}
           onChange={(env) =>
             setParams({
@@ -42,7 +42,7 @@ const SearchPanel = ({ users, params, setParams }: SearchPanelProps) => {
             })
           }
         >
-          <Select.Option value={""}>选择项</Select.Option>
+          <Select.Option value={""}>Select</Select.Option>
           {users.map((user) => (
             <Select.Option key={user.id} value={user.id}>
               {user.name}
