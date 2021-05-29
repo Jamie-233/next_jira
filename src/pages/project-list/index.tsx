@@ -8,6 +8,7 @@ import styled from "@emotion/styled";
 export const ProjectList = () => {
   const [users, setUsers] = useState([]);
   const [list, setList] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [params, setParams] = useState({
     name: "",
     personId: "",
@@ -19,14 +20,17 @@ export const ProjectList = () => {
   useMount(() => http("users").then(setUsers));
 
   useEffect(() => {
-    http("projects", { data: cleanObject(debounceParams) }).then(setList);
+    setIsLoading(true);
+    http("projects", { data: cleanObject(debounceParams) })
+      .then(setList)
+      .finally(() => setIsLoading(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debounceParams]);
 
   return (
     <Container>
       <SearchPanel users={users} params={params} setParams={setParams} />
-      <List users={users} list={list} />
+      <List loading={isLoading} users={users} dataSource={list} />
     </Container>
   );
 };
