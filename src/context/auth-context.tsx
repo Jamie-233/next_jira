@@ -1,8 +1,10 @@
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode } from "react";
 import { User } from "pages/project-list/search-panel";
 import * as auth from "auth-user";
 import { http } from "utils/http";
 import { useMount } from "utils";
+import { useAsync } from "utils/use-async";
+import { FullPageError, FullPageLoading } from "components/lib";
 
 interface AuthForm {
   username: string;
@@ -35,15 +37,32 @@ const AuthContext =
 AuthContext.displayName = "AuthContext";
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<User | null>(null);
+  const {
+    run,
+    data: user,
+    error,
+    isIdle,
+    isLoading,
+    isError,
+    setData: setUser,
+  } = useAsync<User | null>();
+  // const [user, setUser] = useState<User | null>(null);
 
   const login = (form: AuthForm) => auth.login(form).then(setUser);
   const register = (form: AuthForm) => auth.register(form).then(setUser);
   const logout = () => auth.logout().then(() => setUser(null));
 
   useMount(() => {
-    bootstrapUser().then(setUser);
+    run(bootstrapUser());
   });
+
+  if (isIdle || isLoading) {
+    return <FullPageLoading />;
+  }
+
+  if (isError) {
+    return <FullPageError error={error} />;
+  }
 
   return (
     <AuthContext.Provider
@@ -56,9 +75,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 export const useAuth = () => {
   const context = React.useContext(AuthContext);
 
-  if (!context) {
-    throw new Error("useAuth 必须在 AuthProvider 中使用");
-  }
+  if (!context) throw new Error("useAuth Must Be Used in AuthProvider");
 
   return context;
 };

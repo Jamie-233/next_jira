@@ -27,19 +27,19 @@ export const LoginPage = ({ onError }: { onError: (error: Error) => void }) => {
   return (
     <Form onFinish={handleSubmit}>
       <Form.Item
-        name="username"
+        name={"username"}
         rules={[{ required: true, message: "username is required" }]}
       >
-        <Input placeholder="username" type="text" id="username" />
+        <Input placeholder={"username"} type="text" id={"username"} />
       </Form.Item>
       <Form.Item
-        name="password"
+        name={"password"}
         rules={[{ required: true, message: "password is required" }]}
       >
-        <Input placeholder="password" type="password" id="password" />
+        <Input placeholder={"password"} type="password" id={"password"} />
       </Form.Item>
       <Form.Item>
-        <LongButton loading={isLoading} htmlType="submit" type="primary">
+        <LongButton loading={isLoading} htmlType={"submit"} type={"primary"}>
           Sign in
         </LongButton>
       </Form.Item>
