@@ -11,6 +11,11 @@ export const UnAuthenicatedApp = () => {
   const [isRegister, setIsRegister] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
+  const handleToggle = () => {
+    setIsRegister(!isRegister);
+    setError(null);
+  };
+
   return (
     <Container>
       <Header />
@@ -28,7 +33,7 @@ export const UnAuthenicatedApp = () => {
           <LoginPage onError={setError} />
         )}
         <Divider />
-        <LongButton type="link" onClick={() => setIsRegister(!isRegister)}>
+        <LongButton type="link" onClick={handleToggle}>
           {isRegister ? "Sing in" : "Sign up"}
         </LongButton>
       </ShadowCard>
