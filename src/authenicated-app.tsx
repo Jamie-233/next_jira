@@ -4,38 +4,55 @@ import { Row } from "components/lib";
 import { useAuth } from "context/auth-context";
 import { ProjectList } from "pages/project-list";
 import { ReactComponent as Logo } from "assets/software-logo.svg";
+import { Navigate, Route, Routes } from "react-router";
+import { BrowserRouter as Router } from "react-router-dom";
+import { ProjectScreen } from "pages/project-list/project";
 
 export const AuthenicatedApp = () => {
+  return (
+    <Container>
+      <PageHeader />
+      <Main>
+        <Router>
+          <Routes>
+            <Route path={"/projects"} element={<ProjectList />} />
+            <Route
+              path={"/projects/:projectId/*"}
+              element={<ProjectScreen />}
+            />
+          </Routes>
+        </Router>
+      </Main>
+    </Container>
+  );
+};
+
+const PageHeader = () => {
   const { logout, user } = useAuth();
 
   return (
-    <Container>
-      <Header between={true}>
-        <HeaderLeft gap={true}>
-          <Logo width={"18rem"} color={"rgb(38, 132, 255)"} />
-          <h2>Project</h2>
-          <h2>Users</h2>
-        </HeaderLeft>
-        <HeaderRight>
-          <Dropdown
-            overlay={
-              <Menu>
-                <Menu.Item key={"logout"}>
-                  <Button type="link" onClick={logout}>
-                    Logout
-                  </Button>
-                </Menu.Item>
-              </Menu>
-            }
-          >
-            <Button type="link">Hi, {user?.name}</Button>
-          </Dropdown>
-        </HeaderRight>
-      </Header>
-      <Main>
-        <ProjectList />
-      </Main>
-    </Container>
+    <Header between={true}>
+      <HeaderLeft gap={true}>
+        <Logo width={"18rem"} color={"rgb(38, 132, 255)"} />
+        <h2>Project</h2>
+        <h2>Users</h2>
+      </HeaderLeft>
+      <HeaderRight>
+        <Dropdown
+          overlay={
+            <Menu>
+              <Menu.Item key={"logout"}>
+                <Button type="link" onClick={logout}>
+                  Logout
+                </Button>
+              </Menu.Item>
+            </Menu>
+          }
+        >
+          <Button type="link">Hi, {user?.name}</Button>
+        </Dropdown>
+      </HeaderRight>
+    </Header>
   );
 };
 
