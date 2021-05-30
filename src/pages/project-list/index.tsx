@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { useDebounce } from "utils/index";
+import { useDebounce, useDocumentTitle } from "utils/index";
 import List from "./list";
 import SearchPanel from "./search-panel";
 import styled from "@emotion/styled";
 import { Typography } from "antd";
 import { useProjects } from "utils/project";
 import { useUsers } from "utils/user";
+// import { Helmet } from "react-helmet";
 // import { useHttp } from "utils/http";
 // import { useAsync } from "utils/use-async";
 
@@ -23,6 +24,8 @@ export const ProjectList = () => {
   const { data: users } = useUsers(debounceParams);
   const { error, isLoading, data: list } = useProjects(debounceParams);
 
+  useDocumentTitle("Project List", false);
+
   // const http = useHttp();
   // useMount(() => http("users").then(setUsers));
   // useEffect(() => {
@@ -32,6 +35,9 @@ export const ProjectList = () => {
 
   return (
     <Container>
+      {/* <Helmet>
+        <title>Project List</title>
+      </Helmet> */}
       <SearchPanel users={users || []} params={params} setParams={setParams} />
       {error ? (
         <Typography.Text type={"danger"}>{error.message}</Typography.Text>
