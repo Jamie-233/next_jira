@@ -27,11 +27,7 @@ const List = ({ users, ...props }: ListProps) => {
           // sort chinese character
           sorter: (a, b) => a.name.localeCompare(b.name),
           render(value, project) {
-            return (
-              <Link to={String(project.id)}>
-                {project.name}value: {value}
-              </Link>
-            );
+            return <Link to={String(project.id)}>{project.name}</Link>;
           },
         },
         {

@@ -4,7 +4,7 @@ import { Row } from "components/lib";
 import { useAuth } from "context/auth-context";
 import { ProjectList } from "pages/project-list";
 import { ReactComponent as Logo } from "assets/software-logo.svg";
-import { Navigate, Route, Routes } from "react-router";
+import { Routes, Route } from "react-router";
 import { BrowserRouter as Router } from "react-router-dom";
 import { ProjectScreen } from "pages/project-list/project";
 
