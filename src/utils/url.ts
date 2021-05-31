@@ -1,8 +1,9 @@
+import { cleanObject } from "utils";
 import { useMemo } from "react";
-import { useSearchParams } from "react-router-dom";
+import { URLSearchParamsInit, useSearchParams } from "react-router-dom";
 
 /**
- * @desc parse screen url
+ * @desc get current url params and parse params
  * @return {key: value}
  */
 
@@ -18,6 +19,12 @@ export const useUrlQueryParam = <K extends string>(keys: K[]) => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
       [searchParams]
     ),
-    setSearchParams,
+    (params: Partial<{ [key in K]: unknown }>) => {
+      const o = cleanObject({
+        ...Object.fromEntries(searchParams),
+        ...params,
+      }) as URLSearchParamsInit;
+      setSearchParams(o);
+    },
   ] as const;
 };

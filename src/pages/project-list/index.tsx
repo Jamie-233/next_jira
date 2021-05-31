@@ -1,22 +1,22 @@
-import { useState } from "react";
-import { useDebounce, useDocumentTitle } from "utils/index";
 import List from "./list";
+import { Typography } from "antd";
 import SearchPanel from "./search-panel";
 import styled from "@emotion/styled";
-import { Typography } from "antd";
-import { useProjects } from "utils/project";
 import { useUsers } from "utils/user";
+import { useProjects } from "utils/project";
 import { useUrlQueryParam } from "utils/url";
+import { useDebounce, useDocumentTitle } from "utils/index";
+// import { useState } from "react";
 
 export const ProjectList = () => {
-  const [, setParams] = useState({
-    name: "",
-    personId: "",
-  });
+  // const [params, setParams] = useState({
+  //   name: "",
+  //   personId: "",
+  // });
 
   // const [keys] = useState<('name'|'personId')[]>(['name', 'personId']);
   // const [params] = useUrlQueryParam(keys);
-  const [params] = useUrlQueryParam(["name", "personId"]);
+  const [params, setParams] = useUrlQueryParam(["name", "personId"]);
   const debounceParams = useDebounce(params, 200);
   const { data: users } = useUsers();
   const { error, isLoading, data: list } = useProjects(debounceParams);
@@ -39,4 +39,4 @@ export const Container = styled.div`
   padding: 3.2rem;
 `;
 
-ProjectList.whyDidYouRender = true;
+ProjectList.whyDidYouRender = false;
