@@ -4,9 +4,10 @@ import { Row } from "components/lib";
 import { useAuth } from "context/auth-context";
 import { ProjectList } from "pages/project-list";
 import { ReactComponent as Logo } from "assets/software-logo.svg";
-import { Routes, Route } from "react-router";
+import { Routes, Route, Navigate } from "react-router";
 import { BrowserRouter as Router } from "react-router-dom";
 import { ProjectScreen } from "pages/project-list/project";
+import { resetRoute } from "utils";
 
 export const AuthenicatedApp = () => {
   return (
@@ -20,6 +21,7 @@ export const AuthenicatedApp = () => {
               path={"/projects/:projectId/*"}
               element={<ProjectScreen />}
             />
+            <Navigate to={window.location.pathname + "/projects"} />
           </Routes>
         </Router>
       </Main>
@@ -33,7 +35,9 @@ const PageHeader = () => {
   return (
     <Header between={true}>
       <HeaderLeft gap={true}>
-        <Logo width={"18rem"} color={"rgb(38, 132, 255)"} />
+        <Button type={"link"} onClick={resetRoute}>
+          <Logo width={"18rem"} color={"rgb(38, 132, 255)"} />
+        </Button>
         <h2>Project</h2>
         <h2>Users</h2>
       </HeaderLeft>
