@@ -7,7 +7,6 @@ import logo from "assets/logo.svg";
 import left from "assets/left.svg";
 import right from "assets/right.svg";
 import { useDocumentTitle } from "utils";
-// import { Helmet } from 'react-helmet';
 
 export const UnAuthenicatedApp = () => {
   const [isRegister, setIsRegister] = useState(false);
@@ -22,9 +21,6 @@ export const UnAuthenicatedApp = () => {
 
   return (
     <Container>
-      {/* <Helmet>
-        <title>Jira</title>
-      </Helmet> */}
       <Header />
       <Background />
       <ShadowCard>

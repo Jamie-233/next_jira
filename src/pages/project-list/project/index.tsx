@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Routes, Route, Navigate } from "react-router";
-import { PanelScreen } from "pages/Panel";
-import { TaskScreen } from "pages/Task";
+import { PanelScreen } from "pages/panel";
+import { TaskScreen } from "pages/task";
 
 export const ProjectScreen = () => {
   return (

@@ -6,38 +6,26 @@ import styled from "@emotion/styled";
 import { Typography } from "antd";
 import { useProjects } from "utils/project";
 import { useUsers } from "utils/user";
-// import { Helmet } from "react-helmet";
-// import { useHttp } from "utils/http";
-// import { useAsync } from "utils/use-async";
+import { useUrlQueryParam } from "utils/url";
 
 export const ProjectList = () => {
-  // const [users, setUsers] = useState([]);
-  // const [list, setList] = useState([]);
-  // const [isLoading, setIsLoading] = useState(false);
-  // const [error, setError] = useState<null | Error>(null);
-  const [params, setParams] = useState({
+  const [, setParams] = useState({
     name: "",
     personId: "",
   });
 
+  // const [keys] = useState<('name'|'personId')[]>(['name', 'personId']);
+  // const [params] = useUrlQueryParam(keys);
+  const [params] = useUrlQueryParam(["name", "personId"]);
   const debounceParams = useDebounce(params, 200);
-  const { data: users } = useUsers(debounceParams);
+  const { data: users } = useUsers();
   const { error, isLoading, data: list } = useProjects(debounceParams);
 
   useDocumentTitle("Project List", false);
 
-  // const http = useHttp();
-  // useMount(() => http("users").then(setUsers));
-  // useEffect(() => {
-  //   run(http("projects", { data: cleanObject(debounceParams) }))
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [debounceParams]);
-
   return (
     <Container>
-      {/* <Helmet>
-        <title>Project List</title>
-      </Helmet> */}
+      {/* <Helmet><title>Project List</title></Helmet> */}
       <SearchPanel users={users || []} params={params} setParams={setParams} />
       {error ? (
         <Typography.Text type={"danger"}>{error.message}</Typography.Text>
@@ -50,3 +38,5 @@ export const ProjectList = () => {
 export const Container = styled.div`
   padding: 3.2rem;
 `;
+
+ProjectList.whyDidYouRender = true;
