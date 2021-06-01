@@ -1,8 +1,8 @@
+import { useHttp } from "utils/http";
+import { useAsync } from "utils/use-async";
 import { Project } from "pages/project-list/list";
 import { useEffect } from "react";
 import { cleanObject } from "utils";
-import { useHttp } from "./http";
-import { useAsync } from "./use-async";
 
 export const useProjects = (param?: Partial<Project>) => {
   const http = useHttp();
@@ -14,4 +14,42 @@ export const useProjects = (param?: Partial<Project>) => {
   }, [param]);
 
   return result;
+};
+
+export const useEditProject = () => {
+  const { run, ...asyncResult } = useAsync();
+  const http = useHttp();
+
+  const mutate = (params: Partial<Project>) => {
+    run(
+      http(`projects/${params.id}`, {
+        data: params,
+        method: "PATCH",
+      })
+    );
+  };
+
+  return {
+    mutate,
+    ...asyncResult,
+  };
+};
+
+export const useAddProject = () => {
+  const { run, ...asyncResult } = useAsync();
+  const http = useHttp();
+
+  const mutate = (params: Partial<Project>) => {
+    run(
+      http(`projects/${params.id}`, {
+        data: params,
+        method: "POST",
+      })
+    );
+  };
+
+  return {
+    mutate,
+    ...asyncResult,
+  };
 };
