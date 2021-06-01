@@ -8,11 +8,11 @@ interface ListProps extends TableProps<Project> {
 }
 
 export interface Project {
-  id: string;
+  id: number;
   pin: boolean;
   name: string;
   created: number;
-  personId: string;
+  personId: number;
   organization: string;
 }
 

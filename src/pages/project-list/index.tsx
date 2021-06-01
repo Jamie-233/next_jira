@@ -4,24 +4,25 @@ import SearchPanel from "./search-panel";
 import styled from "@emotion/styled";
 import { useUsers } from "utils/user";
 import { useProjects } from "utils/project";
-import { useUrlQueryParam } from "utils/url";
 import { useDebounce, useDocumentTitle } from "utils/index";
-// import { useState } from "react";
+import { useProjectsSearchParams } from "./util";
 
 export const ProjectList = () => {
+  useDocumentTitle("Project List", false);
   // const [params, setParams] = useState({
   //   name: "",
   //   personId: "",
   // });
-
   // const [keys] = useState<('name'|'personId')[]>(['name', 'personId']);
   // const [params] = useUrlQueryParam(keys);
-  const [params, setParams] = useUrlQueryParam(["name", "personId"]);
-  const debounceParams = useDebounce(params, 200);
-  const { data: users } = useUsers();
-  const { error, isLoading, data: list } = useProjects(debounceParams);
 
-  useDocumentTitle("Project List", false);
+  const { data: users } = useUsers();
+  const [params, setParams] = useProjectsSearchParams();
+  const {
+    error,
+    isLoading,
+    data: list,
+  } = useProjects(useDebounce(params, 200));
 
   return (
     <Container>

@@ -6,7 +6,7 @@ import { ProjectList } from "pages/project-list";
 import { ReactComponent as Logo } from "assets/software-logo.svg";
 import { Routes, Route, Navigate } from "react-router";
 import { BrowserRouter as Router } from "react-router-dom";
-import { ProjectScreen } from "pages/project-list/project";
+import { ProjectScreen } from "pages/project";
 import { resetRoute } from "utils";
 
 export const AuthenicatedApp = () => {
