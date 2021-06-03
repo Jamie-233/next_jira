@@ -28,7 +28,7 @@ export const ProjectList = () => {
   return (
     <Container>
       {/* <Helmet><title>Project List</title></Helmet> */}
-      {/* <Button onClick={retry}></Button> */}
+      <Button onClick={retry}></Button>
       <SearchPanel users={users || []} params={params} setParams={setParams} />
       {error ? (
         <Typography.Text type={"danger"}>{error.message}</Typography.Text>

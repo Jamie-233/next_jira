@@ -25,7 +25,8 @@ export const useAsync = <D>(
     ...defaultInitalState,
     ...initalState,
   });
-  const [retry, setRetry] = useState(() => {});
+  // call retry execute run function
+  const [retry, setRetry] = useState(() => () => {});
 
   const setData = (data: D) => {
     setState({
@@ -46,7 +47,9 @@ export const useAsync = <D>(
   const run = (promise: Promise<D>) => {
     if (!promise || !promise.then)
       throw new Error("Please afferent promise type");
-    setRetry(() => run(promise));
+    setRetry(() => () => {
+      run(promise);
+    });
     setState({ ...state, stat: "loading" });
     return promise
       .then((data) => {
@@ -68,7 +71,6 @@ export const useAsync = <D>(
     isLoading: state.stat === "loading",
     isSuccess: state.stat === "success",
     isError: state.stat === "error",
-    // call retry execute run function
     retry,
     ...state,
   };
