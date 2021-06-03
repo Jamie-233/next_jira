@@ -1,5 +1,5 @@
 import List from "./list";
-import { Typography } from "antd";
+import { Button, Typography } from "antd";
 import SearchPanel from "./search-panel";
 import styled from "@emotion/styled";
 import { useUsers } from "utils/user";
@@ -22,11 +22,13 @@ export const ProjectList = () => {
     error,
     isLoading,
     data: list,
+    retry,
   } = useProjects(useDebounce(params, 200));
 
   return (
     <Container>
       {/* <Helmet><title>Project List</title></Helmet> */}
+      {/* <Button onClick={retry}></Button> */}
       <SearchPanel users={users || []} params={params} setParams={setParams} />
       {error ? (
         <Typography.Text type={"danger"}>{error.message}</Typography.Text>
