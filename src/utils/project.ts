@@ -7,9 +7,13 @@ import { cleanObject } from "utils";
 export const useProjects = (param?: Partial<Project>) => {
   const http = useHttp();
   const { run, ...result } = useAsync<Project[]>();
+  const featchProjects = () =>
+    http("projects", { data: cleanObject(param || {}) });
 
   useEffect(() => {
-    run(http("projects", { data: cleanObject(param || {}) }));
+    run(featchProjects(), {
+      retry: featchProjects,
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [param]);
 
@@ -21,7 +25,7 @@ export const useEditProject = () => {
   const http = useHttp();
 
   const mutate = (params: Partial<Project>) => {
-    run(
+    return run(
       http(`projects/${params.id}`, {
         data: params,
         method: "PATCH",

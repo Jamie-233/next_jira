@@ -44,13 +44,19 @@ export const useAsync = <D>(
     });
   };
 
-  const run = (promise: Promise<D>) => {
+  const run = (
+    promise: Promise<D>,
+    runConfig?: { retry: () => Promise<D> }
+  ) => {
     if (!promise || !promise.then)
       throw new Error("Please afferent promise type");
+
     setRetry(() => () => {
-      run(promise);
+      if (runConfig?.retry) run(runConfig.retry(), runConfig);
     });
+
     setState({ ...state, stat: "loading" });
+
     return promise
       .then((data) => {
         setData(data);
