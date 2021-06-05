@@ -1,6 +1,7 @@
+import { useState } from "react";
 import styled from "@emotion/styled";
 import { Button, Dropdown, Menu } from "antd";
-import { Row } from "components/lib";
+import { ButtonOnPadding, Row } from "components/lib";
 import { useAuth } from "context/auth-context";
 import { ProjectList } from "pages/project-list";
 import { ReactComponent as Logo } from "assets/software-logo.svg";
@@ -8,15 +9,23 @@ import { Routes, Route, Navigate } from "react-router";
 import { BrowserRouter as Router } from "react-router-dom";
 import { ProjectScreen } from "pages/project";
 import { resetRoute } from "utils";
+import { ProjectModal } from "pages/project-list/project-modal";
+import { ProjectPopover } from "components/project-popover";
 
 export const AuthenicatedApp = () => {
+  const [projectModalShow, setProjectModalShow] = useState(false);
   return (
     <Container>
-      <PageHeader />
+      <PageHeader setProjectModalShow={setProjectModalShow} />
       <Main>
         <Router>
           <Routes>
-            <Route path={"/projects"} element={<ProjectList />} />
+            <Route
+              path={"/projects"}
+              element={
+                <ProjectList setProjectModalShow={setProjectModalShow} />
+              }
+            />
             <Route
               path={"/projects/:projectId/*"}
               element={<ProjectScreen />}
@@ -25,36 +34,28 @@ export const AuthenicatedApp = () => {
           </Routes>
         </Router>
       </Main>
+      <ProjectModal
+        projectModalShow={projectModalShow}
+        onClose={() => setProjectModalShow(false)}
+      />
     </Container>
   );
 };
 
-const PageHeader = () => {
-  const { logout, user } = useAuth();
-
+const PageHeader = (props: {
+  setProjectModalShow: (isShow: boolean) => void;
+}) => {
   return (
     <Header between={true}>
       <HeaderLeft gap={true}>
-        <Button type={"link"} onClick={resetRoute}>
+        <ButtonOnPadding type={"link"} onClick={resetRoute}>
           <Logo width={"18rem"} color={"rgb(38, 132, 255)"} />
-        </Button>
-        <h2>Project</h2>
-        <h2>Users</h2>
+        </ButtonOnPadding>
+        <ProjectPopover setProjectModalShow={props.setProjectModalShow} />
+        <span>Users</span>
       </HeaderLeft>
       <HeaderRight>
-        <Dropdown
-          overlay={
-            <Menu>
-              <Menu.Item key={"logout"}>
-                <Button type="link" onClick={logout}>
-                  Logout
-                </Button>
-              </Menu.Item>
-            </Menu>
-          }
-        >
-          <Button type="link">Hi, {user?.name}</Button>
-        </Dropdown>
+        <User />
       </HeaderRight>
     </Header>
   );
@@ -71,6 +72,26 @@ const Header = styled(Row)`
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
   z-index: 1;
 `;
+
+const User = () => {
+  const { logout, user } = useAuth();
+
+  return (
+    <Dropdown
+      overlay={
+        <Menu>
+          <Menu.Item key={"logout"}>
+            <Button type="link" onClick={logout}>
+              Logout
+            </Button>
+          </Menu.Item>
+        </Menu>
+      }
+    >
+      <Button type="link">Hi, {user?.name}</Button>
+    </Dropdown>
+  );
+};
 
 const Main = styled.main``;
 

@@ -1,4 +1,5 @@
-import { Table, TableProps } from "antd";
+import { Dropdown, Menu, Table, TableProps } from "antd";
+import { ButtonOnPadding } from "components/lib";
 import { Pin } from "components/pin";
 import dayjs from "dayjs";
 import { Link } from "react-router-dom";
@@ -8,6 +9,7 @@ import { User } from "./search-panel";
 interface ListProps extends TableProps<Project> {
   users: User[];
   refresh?: () => void;
+  setProjectModalShow: (isShow: boolean) => void;
 }
 
 export interface Project {
@@ -74,6 +76,28 @@ const List = ({ users, ...props }: ListProps) => {
                 {users.find((user) => user.id === project.personId)?.name ||
                   "未知"}
               </span>
+            );
+          },
+        },
+        {
+          render(value, project) {
+            return (
+              <Dropdown
+                overlay={
+                  <Menu>
+                    <Menu.Item key={"edit"}>
+                      <ButtonOnPadding
+                        onClick={() => props.setProjectModalShow(true)}
+                        type={"link"}
+                      >
+                        edit
+                      </ButtonOnPadding>
+                    </Menu.Item>
+                  </Menu>
+                }
+              >
+                <ButtonOnPadding type={"link"}>...</ButtonOnPadding>
+              </Dropdown>
             );
           },
         },

@@ -1,5 +1,5 @@
 import List from "./list";
-import { Button, Typography } from "antd";
+import { Button, Row, Typography } from "antd";
 import SearchPanel from "./search-panel";
 import styled from "@emotion/styled";
 import { useUsers } from "utils/user";
@@ -7,7 +7,9 @@ import { useProjects } from "utils/project";
 import { useDebounce, useDocumentTitle } from "utils/index";
 import { useProjectsSearchParam } from "./util";
 
-export const ProjectList = () => {
+export const ProjectList = (props: {
+  setProjectModalShow: (isShow: boolean) => void;
+}) => {
   useDocumentTitle("Project List", false);
   // const [params, setParams] = useState({
   //   name: "",
@@ -28,7 +30,11 @@ export const ProjectList = () => {
   return (
     <Container>
       {/* <Helmet><title>Project List</title></Helmet> */}
-      <Button onClick={retry}></Button>
+      <Row justify={"space-between"}>
+        <h2>Project List</h2>
+        <Button onClick={() => props.setProjectModalShow(true)}>Creat</Button>
+      </Row>
+      {/* <Button onClick={retry}></Button> */}
       <SearchPanel users={users || []} param={param} setParam={setParam} />
       {error ? (
         <Typography.Text type={"danger"}>{error.message}</Typography.Text>
@@ -38,6 +44,7 @@ export const ProjectList = () => {
         loading={isLoading}
         users={users || []}
         dataSource={list || []}
+        setProjectModalShow={props.setProjectModalShow}
       />
     </Container>
   );
