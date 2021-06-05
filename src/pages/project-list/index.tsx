@@ -5,7 +5,7 @@ import styled from "@emotion/styled";
 import { useUsers } from "utils/user";
 import { useProjects } from "utils/project";
 import { useDebounce, useDocumentTitle } from "utils/index";
-import { useProjectsSearchParams } from "./util";
+import { useProjectsSearchParam } from "./util";
 
 export const ProjectList = () => {
   useDocumentTitle("Project List", false);
@@ -17,19 +17,19 @@ export const ProjectList = () => {
   // const [params] = useUrlQueryParam(keys);
 
   const { data: users } = useUsers();
-  const [params, setParams] = useProjectsSearchParams();
+  const [param, setParam] = useProjectsSearchParam();
   const {
     error,
     isLoading,
     data: list,
     retry,
-  } = useProjects(useDebounce(params, 200));
+  } = useProjects(useDebounce(param, 200));
 
   return (
     <Container>
       {/* <Helmet><title>Project List</title></Helmet> */}
       <Button onClick={retry}></Button>
-      <SearchPanel users={users || []} params={params} setParams={setParams} />
+      <SearchPanel users={users || []} param={param} setParam={setParam} />
       {error ? (
         <Typography.Text type={"danger"}>{error.message}</Typography.Text>
       ) : null}

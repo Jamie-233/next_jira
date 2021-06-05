@@ -17,20 +17,20 @@ interface SearchPanelProps {
   //   name: string;
   //   personId: number;
   // };
-  params: Partial<Pick<Project, "name" | "personId">>;
-  setParams: (params: SearchPanelProps["params"]) => void;
+  param: Partial<Pick<Project, "name" | "personId">>;
+  setParam: (param: SearchPanelProps["param"]) => void;
 }
 
-const SearchPanel = ({ users, params, setParams }: SearchPanelProps) => {
+const SearchPanel = ({ users, param, setParam }: SearchPanelProps) => {
   return (
     <Form style={{ marginBottom: "3.2rem" }} layout={"inline"}>
       <Form.Item>
         <Input
-          type={"text"}
-          value={params.name}
+          type="text"
+          value={param.name}
           onChange={(env) =>
-            setParams({
-              ...params,
+            setParam({
+              ...param,
               name: env.target.value,
             })
           }
@@ -39,10 +39,10 @@ const SearchPanel = ({ users, params, setParams }: SearchPanelProps) => {
       <Form.Item>
         <UserSelect
           defaultOptionName={"Owner"}
-          value={params.personId}
+          value={param.personId}
           onChange={(value) =>
-            setParams({
-              ...params,
+            setParam({
+              ...param,
               personId: value,
             })
           }
@@ -50,7 +50,7 @@ const SearchPanel = ({ users, params, setParams }: SearchPanelProps) => {
         {/* <Select
           value={params.personId}
           onChange={(value) =>
-            setParams({
+            setParam({
               ...params,
               personId: value,
             })
