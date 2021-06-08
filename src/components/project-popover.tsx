@@ -23,6 +23,7 @@ export const ProjectPopover = (props: {
       <ButtonOnPadding
         onClick={() => props.setProjectModalShow(true)}
         type={"link"}
+        loading={isLoading}
       >
         Create Project
       </ButtonOnPadding>
@@ -30,7 +31,7 @@ export const ProjectPopover = (props: {
   );
   return (
     <Popover placement={"bottom"} content={content}>
-      <span>Project</span>
+      <ButtonOnPadding type={"link"}>Project</ButtonOnPadding>
     </Popover>
   );
 };

@@ -11,6 +11,7 @@ export const ProjectList = (props: {
   setProjectModalShow: (isShow: boolean) => void;
 }) => {
   useDocumentTitle("Project List", false);
+  const { setProjectModalShow } = props;
   // const [params, setParams] = useState({
   //   name: "",
   //   personId: "",
@@ -32,7 +33,7 @@ export const ProjectList = (props: {
       {/* <Helmet><title>Project List</title></Helmet> */}
       <Row justify={"space-between"}>
         <h2>Project List</h2>
-        <Button onClick={() => props.setProjectModalShow(true)}>Creat</Button>
+        <Button onClick={() => setProjectModalShow(true)}>Creat</Button>
       </Row>
       {/* <Button onClick={retry}></Button> */}
       <SearchPanel users={users || []} param={param} setParam={setParam} />
@@ -44,7 +45,7 @@ export const ProjectList = (props: {
         loading={isLoading}
         users={users || []}
         dataSource={list || []}
-        setProjectModalShow={props.setProjectModalShow}
+        setProjectModalShow={setProjectModalShow}
       />
     </Container>
   );

@@ -14,6 +14,7 @@ import { ProjectPopover } from "components/project-popover";
 
 export const AuthenicatedApp = () => {
   const [projectModalShow, setProjectModalShow] = useState(false);
+
   return (
     <Container>
       <PageHeader setProjectModalShow={setProjectModalShow} />
@@ -45,14 +46,15 @@ export const AuthenicatedApp = () => {
 const PageHeader = (props: {
   setProjectModalShow: (isShow: boolean) => void;
 }) => {
+  const { setProjectModalShow } = props;
   return (
     <Header between={true}>
       <HeaderLeft gap={true}>
         <ButtonOnPadding type={"link"} onClick={resetRoute}>
           <Logo width={"18rem"} color={"rgb(38, 132, 255)"} />
         </ButtonOnPadding>
-        <ProjectPopover setProjectModalShow={props.setProjectModalShow} />
-        <span>Users</span>
+        <ProjectPopover setProjectModalShow={setProjectModalShow} />
+        <ButtonOnPadding type={"link"}>Users</ButtonOnPadding>
       </HeaderLeft>
       <HeaderRight>
         <User />
