@@ -6,7 +6,7 @@ import { useCallback } from "react";
 const apiUrl = process.env.REACT_APP_API_URL;
 
 interface Config extends RequestInit {
-  data?: Object;
+  data?: object;
   token?: string;
 }
 
@@ -52,7 +52,7 @@ export const useHttp = () => {
   const { user } = useAuth();
   return useCallback(
     (...[endpoint, config]: Parameters<typeof http>) =>
-      http(endpoint, { ...config, token: user?.token }),
+      http(endpoint, { ...config, token: user?.token || "" }),
     [user?.token]
   );
 };

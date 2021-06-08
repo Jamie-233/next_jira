@@ -39,11 +39,11 @@ AuthContext.displayName = "AuthContext";
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const {
     run,
-    data: user,
     error,
     isIdle,
     isLoading,
     isError,
+    data: user,
     setData: setUser,
   } = useAsync<User | null>();
   // const [user, setUser] = useState<User | null>(null);
