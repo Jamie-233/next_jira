@@ -1,5 +1,5 @@
 import List from "./list";
-import { Button, Row, Typography } from "antd";
+import { Row, Typography } from "antd";
 import SearchPanel from "./search-panel";
 import styled from "@emotion/styled";
 import { useUsers } from "utils/user";
@@ -7,11 +7,9 @@ import { useProjects } from "utils/project";
 import { useDebounce, useDocumentTitle } from "utils/index";
 import { useProjectsSearchParam } from "./util";
 
-export const ProjectList = (props: {
-  setProjectModalShow: (isShow: boolean) => void;
-}) => {
+export const ProjectList = (props: { projectButton: JSX.Element }) => {
   useDocumentTitle("Project List", false);
-  const { setProjectModalShow } = props;
+  const { projectButton } = props;
   // const [params, setParams] = useState({
   //   name: "",
   //   personId: "",
@@ -33,7 +31,8 @@ export const ProjectList = (props: {
       {/* <Helmet><title>Project List</title></Helmet> */}
       <Row justify={"space-between"}>
         <h2>Project List</h2>
-        <Button onClick={() => setProjectModalShow(true)}>Creat</Button>
+        {projectButton}
+        {/* <Button onClick={() => setProjectModalShow(true)}>Creat</Button> */}
       </Row>
       {/* <Button onClick={retry}></Button> */}
       <SearchPanel users={users || []} param={param} setParam={setParam} />
@@ -45,7 +44,8 @@ export const ProjectList = (props: {
         loading={isLoading}
         users={users || []}
         dataSource={list || []}
-        setProjectModalShow={setProjectModalShow}
+        projectButton={projectButton}
+        // setProjectModalShow={setProjectModalShow}
       />
     </Container>
   );

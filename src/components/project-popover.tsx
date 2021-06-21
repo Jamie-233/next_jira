@@ -3,10 +3,8 @@ import { Divider, List, Popover, Typography } from "antd";
 import { useProjects } from "utils/project";
 import { ButtonOnPadding } from "./lib";
 
-export const ProjectPopover = (props: {
-  setProjectModalShow: (isShow: boolean) => void;
-}) => {
-  const { data: projects, isLoading } = useProjects();
+export const ProjectPopover = (props: { projectButton: JSX.Element }) => {
+  const { data: projects } = useProjects();
   const pinnedProjects = projects?.filter((project) => project.pin);
 
   const content = (
@@ -20,13 +18,14 @@ export const ProjectPopover = (props: {
         ))}
       </List>
       <Divider />
-      <ButtonOnPadding
+      {props.projectButton}
+      {/* <ButtonOnPadding
         onClick={() => props.setProjectModalShow(true)}
         type={"link"}
         loading={isLoading}
       >
         Create Project
-      </ButtonOnPadding>
+      </ButtonOnPadding> */}
     </ContentContainer>
   );
   return (

@@ -7,16 +7,16 @@ import { cleanObject } from "utils";
 export const useProjects = (param?: Partial<Project>) => {
   const http = useHttp();
   const { run, ...result } = useAsync<Project[]>();
-  const featchProjects = useCallback(
+  const fetchProjects = useCallback(
     () => http("projects", { data: cleanObject(param || {}) }),
     [http, param]
   );
 
   useEffect(() => {
-    run(featchProjects(), {
-      retry: featchProjects,
+    run(fetchProjects(), {
+      retry: fetchProjects,
     });
-  }, [featchProjects, param, run]);
+  }, [fetchProjects, param, run]);
 
   return result;
 };

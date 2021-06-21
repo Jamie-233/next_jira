@@ -18,13 +18,13 @@ const defaultConfig = {
 };
 
 export const useAsync = <D>(
-  initalState?: State<D>,
-  initalConfig?: typeof defaultConfig
+  initialState?: State<D>,
+  initialConfig?: typeof defaultConfig
 ) => {
-  const config = { ...defaultConfig, ...initalConfig };
+  const config = { ...defaultConfig, ...initialConfig };
   const [state, setState] = useState<State<D>>({
     ...defaultInitalState,
-    ...initalState,
+    ...initialState,
   });
   // call retry execute run function
   const [retry, setRetry] = useState(() => () => {});

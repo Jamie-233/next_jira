@@ -17,14 +17,32 @@ export const AuthenicatedApp = () => {
 
   return (
     <Container>
-      <PageHeader setProjectModalShow={setProjectModalShow} />
+      <PageHeader
+        projectButton={
+          <ButtonOnPadding
+            type={"link"}
+            onClick={() => setProjectModalShow(true)}
+          >
+            Create Project
+          </ButtonOnPadding>
+        }
+      />
       <Main>
         <Router>
           <Routes>
             <Route
               path={"/projects"}
               element={
-                <ProjectList setProjectModalShow={setProjectModalShow} />
+                <ProjectList
+                  projectButton={
+                    <ButtonOnPadding
+                      type={"link"}
+                      onClick={() => setProjectModalShow(true)}
+                    >
+                      Edit
+                    </ButtonOnPadding>
+                  }
+                />
               }
             />
             <Route
@@ -43,17 +61,14 @@ export const AuthenicatedApp = () => {
   );
 };
 
-const PageHeader = (props: {
-  setProjectModalShow: (isShow: boolean) => void;
-}) => {
-  const { setProjectModalShow } = props;
+const PageHeader = (props: { projectButton: JSX.Element }) => {
   return (
     <Header between={true}>
       <HeaderLeft gap={true}>
         <ButtonOnPadding type={"link"} onClick={resetRoute}>
           <Logo width={"18rem"} color={"rgb(38, 132, 255)"} />
         </ButtonOnPadding>
-        <ProjectPopover setProjectModalShow={setProjectModalShow} />
+        <ProjectPopover {...props} />
         <ButtonOnPadding type={"link"}>Users</ButtonOnPadding>
       </HeaderLeft>
       <HeaderRight>
