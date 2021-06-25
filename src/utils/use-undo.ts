@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 export const useUndo = <T>(initialState: T) => {
   const [past, setPast] = useState<T[]>([]);
@@ -8,7 +8,7 @@ export const useUndo = <T>(initialState: T) => {
   const canUndo = past.length !== 0;
   const canRedo = future.length !== 0;
 
-  const undo = () => {
+  const undo = useCallback(() => {
     if (!canUndo) return;
     const previous = past[past.length - 1];
     const newPast = past.slice(0, past.length - 1); // 处理过去 不包含最新
@@ -16,9 +16,9 @@ export const useUndo = <T>(initialState: T) => {
     setPast(newPast);
     setPresent(previous);
     setFuture([present, ...future]);
-  };
+  }, [canUndo, future, past, present]);
 
-  const redo = () => {
+  const redo = useCallback(() => {
     if (!canRedo) return;
 
     const next = future[0];
@@ -27,12 +27,26 @@ export const useUndo = <T>(initialState: T) => {
     setPast([...past, present]);
     setPresent(next);
     setFuture(newFuture);
+  }, []);
+
+  const set = (newPresent: T) => {
+    if (newPresent === present) {
+      return;
+    }
+
+    setPast([...past, present]);
+    setPresent(newPresent);
+    setFuture([]);
   };
 
-  return {
-    undo,
-    redo,
-    canUndo,
-    canRedo,
+  const reset = (newPresent: T) => {
+    setPast([]);
+    setPresent(newPresent);
+    setFuture([]);
   };
+
+  return [
+    { past, present, future },
+    { set, reset, undo, redo, canUndo, canRedo },
+  ] as const;
 };
