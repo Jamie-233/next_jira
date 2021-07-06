@@ -1,4 +1,3 @@
-import { useState } from "react";
 import styled from "@emotion/styled";
 import { Button, Dropdown, Menu } from "antd";
 import { ButtonOnPadding, Row } from "components/lib";
@@ -13,38 +12,15 @@ import { ProjectModal } from "pages/project-list/project-modal";
 import { ProjectPopover } from "components/project-popover";
 
 export const AuthenicatedApp = () => {
-  const [projectModalShow, setProjectModalShow] = useState(false);
+  // const [projectModalShow, setProjectModalShow] = useState(false);
 
   return (
     <Container>
-      <PageHeader
-        projectButton={
-          <ButtonOnPadding
-            type={"link"}
-            onClick={() => setProjectModalShow(true)}
-          >
-            Create Project
-          </ButtonOnPadding>
-        }
-      />
+      <PageHeader />
       <Main>
         <Router>
           <Routes>
-            <Route
-              path={"/projects"}
-              element={
-                <ProjectList
-                  projectButton={
-                    <ButtonOnPadding
-                      type={"link"}
-                      onClick={() => setProjectModalShow(true)}
-                    >
-                      Edit
-                    </ButtonOnPadding>
-                  }
-                />
-              }
-            />
+            <Route path={"/projects"} element={<ProjectList />} />
             <Route
               path={"/projects/:projectId/*"}
               element={<ProjectScreen />}
@@ -53,22 +29,19 @@ export const AuthenicatedApp = () => {
           </Routes>
         </Router>
       </Main>
-      <ProjectModal
-        projectModalShow={projectModalShow}
-        onClose={() => setProjectModalShow(false)}
-      />
+      <ProjectModal />
     </Container>
   );
 };
-
-const PageHeader = (props: { projectButton: JSX.Element }) => {
+// props: { projectButton: JSX.Element }
+const PageHeader = () => {
   return (
     <Header between={true}>
       <HeaderLeft gap={true}>
         <ButtonOnPadding type={"link"} onClick={resetRoute}>
           <Logo width={"18rem"} color={"rgb(38, 132, 255)"} />
         </ButtonOnPadding>
-        <ProjectPopover {...props} />
+        <ProjectPopover />
         <ButtonOnPadding type={"link"}>Users</ButtonOnPadding>
       </HeaderLeft>
       <HeaderRight>

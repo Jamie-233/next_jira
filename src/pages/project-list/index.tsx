@@ -1,15 +1,19 @@
 import List from "./list";
-import { Row, Typography } from "antd";
+import { Row, Typography, Button } from "antd";
 import SearchPanel from "./search-panel";
 import styled from "@emotion/styled";
 import { useUsers } from "utils/user";
 import { useProjects } from "utils/project";
 import { useDebounce, useDocumentTitle } from "utils/index";
 import { useProjectsSearchParam } from "./util";
+import { useDispatch } from "react-redux";
+import { projectListActions } from "./project-list.slice";
 
-export const ProjectList = (props: { projectButton: JSX.Element }) => {
+export const ProjectList = () => {
   useDocumentTitle("Project List", false);
-  const { projectButton } = props;
+  const dispatch = useDispatch();
+  // props: { projectButton: JSX.Element }
+  // const { projectButton } = props;
   // const [params, setParams] = useState({
   //   name: "",
   //   personId: "",
@@ -31,8 +35,10 @@ export const ProjectList = (props: { projectButton: JSX.Element }) => {
       {/* <Helmet><title>Project List</title></Helmet> */}
       <Row justify={"space-between"}>
         <h2>Project List</h2>
-        {projectButton}
-        {/* <Button onClick={() => setProjectModalShow(true)}>Creat</Button> */}
+        {/* {projectButton} */}
+        <Button onClick={() => dispatch(projectListActions.openProjectModal())}>
+          Creat
+        </Button>
       </Row>
       {/* <Button onClick={retry}></Button> */}
       <SearchPanel users={users || []} param={param} setParam={setParam} />
@@ -44,7 +50,7 @@ export const ProjectList = (props: { projectButton: JSX.Element }) => {
         loading={isLoading}
         users={users || []}
         dataSource={list || []}
-        projectButton={projectButton}
+        // projectButton={projectButton}
         // setProjectModalShow={setProjectModalShow}
       />
     </Container>
