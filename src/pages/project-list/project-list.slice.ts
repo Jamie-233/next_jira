@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+
 interface State {
   projectModalOpen: boolean;
 }
@@ -8,7 +9,7 @@ const initialState: State = {
 };
 
 export const projectListSlice = createSlice({
-  name: "projectListSlicee",
+  name: "projectListSlice",
   initialState,
   reducers: {
     openProjectModal(state) {
