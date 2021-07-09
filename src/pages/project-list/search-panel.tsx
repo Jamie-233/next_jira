@@ -10,7 +10,6 @@ export interface User {
   title: string;
   organization: string;
 }
-
 interface SearchPanelProps {
   users: User[];
   // params: {
