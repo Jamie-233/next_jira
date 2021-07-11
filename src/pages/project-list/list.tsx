@@ -9,7 +9,7 @@ import { User } from "./search-panel";
 interface ListProps extends TableProps<Project> {
   users: User[];
   refresh?: () => void;
-  projectButton: JSX.Element;
+  // projectButton: JSX.Element;
 }
 
 export interface Project {
@@ -22,7 +22,7 @@ export interface Project {
 }
 
 const List = ({ users, ...props }: ListProps) => {
-  const { refresh, projectButton } = props;
+  const { refresh } = props;
   const { mutate } = useEditProject();
   const pinProject = (id: number) => (pin: boolean) =>
     mutate({ id, pin }).then(refresh);
@@ -87,7 +87,7 @@ const List = ({ users, ...props }: ListProps) => {
                 overlay={
                   <Menu>
                     <Menu.Item key={"edit"}>
-                      {projectButton}
+                      {/* {projectButton} */}
                       {/* <ButtonOnPadding
                         onClick={() => props.setProjectModalShow(true)}
                         type={"link"}

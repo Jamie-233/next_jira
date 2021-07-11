@@ -5,11 +5,12 @@ import styled from "@emotion/styled";
 import { useUsers } from "utils/user";
 import { useProjects } from "utils/project";
 import { useDebounce, useDocumentTitle } from "utils/index";
-import { useProjectsSearchParam } from "./util";
+import { useProjectModal, useProjectsSearchParam } from "./util";
+import { ButtonOnPadding } from "components/lib";
 
-export const ProjectList = (props: { projectButton: JSX.Element }) => {
+export const ProjectList = () => {
+  const { open } = useProjectModal();
   useDocumentTitle("Project List", false);
-  const { projectButton } = props;
   // const [params, setParams] = useState({
   //   name: "",
   //   personId: "",
@@ -31,8 +32,9 @@ export const ProjectList = (props: { projectButton: JSX.Element }) => {
       {/* <Helmet><title>Project List</title></Helmet> */}
       <Row justify={"space-between"}>
         <h2>Project List</h2>
-        {projectButton}
-        {/* <Button onClick={() => setProjectModalShow(true)}>Creat</Button> */}
+        <ButtonOnPadding onClick={open} type={"link"} loading={isLoading}>
+          Create Project
+        </ButtonOnPadding>
       </Row>
       {/* <Button onClick={retry}></Button> */}
       <SearchPanel users={users || []} param={param} setParam={setParam} />
@@ -44,7 +46,7 @@ export const ProjectList = (props: { projectButton: JSX.Element }) => {
         loading={isLoading}
         users={users || []}
         dataSource={list || []}
-        projectButton={projectButton}
+        // projectButton={projectButton}
         // setProjectModalShow={setProjectModalShow}
       />
     </Container>

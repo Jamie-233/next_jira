@@ -12,7 +12,7 @@ export const useMount = (cb: () => void) => {
   }, []);
 };
 
-export const cleanObject = (object: { [ket: string]: unknown }) => {
+export const cleanObject = (object: { [key: string]: unknown }) => {
   const result = { ...object };
 
   Object.keys(result).forEach((key) => {
