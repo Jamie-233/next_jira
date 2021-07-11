@@ -8,7 +8,7 @@ import { User } from "./search-panel";
 
 interface ListProps extends TableProps<Project> {
   users: User[];
-  refresh?: () => void;
+  // refresh?: () => void;
   // projectButton: JSX.Element;
 }
 
@@ -22,10 +22,9 @@ export interface Project {
 }
 
 const List = ({ users, ...props }: ListProps) => {
-  const { refresh } = props;
+  // const { refresh } = props;
   const { mutate } = useEditProject();
-  const pinProject = (id: number) => (pin: boolean) =>
-    mutate({ id, pin }).then(refresh);
+  const pinProject = (id: number) => (pin: boolean) => mutate({ id, pin });
 
   return (
     <Table

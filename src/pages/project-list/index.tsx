@@ -1,12 +1,12 @@
 import List from "./list";
-import { Row, Typography } from "antd";
+import { Row } from "antd";
 import SearchPanel from "./search-panel";
 import styled from "@emotion/styled";
 import { useUsers } from "utils/user";
 import { useProjects } from "utils/project";
 import { useDebounce, useDocumentTitle } from "utils/index";
 import { useProjectModal, useProjectsSearchParam } from "./util";
-import { ButtonOnPadding } from "components/lib";
+import { ButtonOnPadding, ErrorBox } from "components/lib";
 
 export const ProjectList = () => {
   const { open } = useProjectModal();
@@ -24,7 +24,7 @@ export const ProjectList = () => {
     error,
     isLoading,
     data: list,
-    retry,
+    // retry,
   } = useProjects(useDebounce(param, 200));
 
   return (
@@ -38,11 +38,14 @@ export const ProjectList = () => {
       </Row>
       {/* <Button onClick={retry}></Button> */}
       <SearchPanel users={users || []} param={param} setParam={setParam} />
-      {error ? (
-        <Typography.Text type={"danger"}>{error.message}</Typography.Text>
-      ) : null}
+      {/* {
+        error
+        ? <Typography.Text type={"danger"}>{error.message}</Typography.Text>
+        : null
+      } */}
+      <ErrorBox error={error} />
       <List
-        refresh={retry}
+        // refresh={retry}
         loading={isLoading}
         users={users || []}
         dataSource={list || []}

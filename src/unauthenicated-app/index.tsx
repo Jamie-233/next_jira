@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { RegisterPage } from "unauthenicated-app/register";
 import { LoginPage } from "unauthenicated-app/login";
-import { Button, Card, Divider, Typography } from "antd";
+import { Button, Card, Divider } from "antd";
 import styled from "@emotion/styled";
 import logo from "assets/logo.svg";
 import left from "assets/left.svg";
 import right from "assets/right.svg";
 import { useDocumentTitle } from "utils";
+import { ErrorBox } from "components/lib";
 
 export const UnAuthenicatedApp = () => {
   const [isRegister, setIsRegister] = useState(false);
@@ -25,11 +26,12 @@ export const UnAuthenicatedApp = () => {
       <Background />
       <ShadowCard>
         <Title>{isRegister ? "Sign up" : "Sing in"}</Title>
-        {error ? (
+        <ErrorBox error={error} />
+        {/* {error ? (
           <AlertError>
             <Typography.Text type={"danger"}>{error.message}</Typography.Text>
           </AlertError>
-        ) : null}
+        ) : null} */}
         {isRegister ? (
           <RegisterPage onError={setError} />
         ) : (
@@ -87,8 +89,4 @@ const Title = styled.h2`
   text-align: center;
   margin-bottom: 2.4rem;
   color: rgb(94, 108, 132);
-`;
-
-const AlertError = styled.div`
-  text-align: center;
 `;

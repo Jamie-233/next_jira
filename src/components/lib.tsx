@@ -44,10 +44,30 @@ export const FullPageLoading = () => (
 export const FullPageError = ({ error }: { error?: Error | null }) => (
   <FullPage>
     <DevTools />
+    <ErrorBox error={error} />
     <Typography.Text type={"danger"}>{error?.message}</Typography.Text>
   </FullPage>
 );
 
+// type guards
+const isError = (value: any): value is Error => value?.message;
+
+export const ErrorBox = ({ error }: { error: unknown }) => {
+  if (isError(error)) {
+    return (
+      <AlertError>
+        <Typography.Text type={"danger"}>{error?.message}</Typography.Text>
+      </AlertError>
+    );
+  }
+
+  return null;
+};
+
 export const ButtonOnPadding = styled(Button)`
   padding: 0;
+`;
+
+const AlertError = styled.div`
+  text-align: center;
 `;

@@ -1,24 +1,29 @@
 import { useHttp } from "utils/http";
 import { useAsync } from "utils/use-async";
 import { Project } from "pages/project-list/list";
-import { useCallback, useEffect } from "react";
-import { cleanObject } from "utils";
+// import { useCallback, useEffect } from "react";
+// import { cleanObject } from "utils";
+import { useQuery } from "react-query";
 
 export const useProjects = (param?: Partial<Project>) => {
   const http = useHttp();
-  const { run, ...result } = useAsync<Project[]>();
-  const fetchProjects = useCallback(
-    () => http("projects", { data: cleanObject(param || {}) }),
-    [http, param]
+  // const { run, ...result } = useAsync<Project[]>();
+  // const fetchProjects = useCallback(
+  //   () => http("projects", { data: cleanObject(param || {}) }),
+  //   [http, param]
+  // );
+
+  // useEffect(() => {
+  //   run(fetchProjects(), {
+  //     retry: fetchProjects,
+  //   });
+  // }, [fetchProjects, param, run]);
+
+  // return result;
+
+  return useQuery<Project[]>(["projects", param], () =>
+    http("projects", { data: param })
   );
-
-  useEffect(() => {
-    run(fetchProjects(), {
-      retry: fetchProjects,
-    });
-  }, [fetchProjects, param, run]);
-
-  return result;
 };
 
 export const useEditProject = () => {
