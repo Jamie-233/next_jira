@@ -1,3 +1,4 @@
+import { useProject } from "./../../utils/project";
 import { useMemo } from "react";
 import { useUrlQueryParam } from "utils/url";
 
@@ -19,14 +20,28 @@ export const useProjectModal = () => {
     "projectCreate",
   ]);
 
+  const [{ editingProjectId }, setEditingProjectId] = useUrlQueryParam([
+    "editingProjectId",
+  ]);
+
+  const { data: editProject, isLoading } = useProject(Number(editingProjectId));
+
   const open = () => setProjectCreate({ projectCreate: true });
-  const close = () => setProjectCreate({ projectCreate: undefined });
+  const close = () => {
+    setProjectCreate({ projectCreate: undefined });
+    setEditingProjectId({ editingProjectId: undefined });
+  };
+  const startEdit = (id: number) =>
+    setEditingProjectId({ editingProjectId: id });
 
   // 使用时不用注意先后顺序 但是名字被限制了(需要手动重命名) 适合导出多个(3个以上)
   return {
-    projectModalOpen: projectCreate === "true",
+    projectModalOpen: projectCreate === "true" || Boolean(editingProjectId),
     open,
     close,
+    startEdit,
+    editProject,
+    isLoading,
   };
 
   // return Tuple 好处: 使用hook时 名字可以自定义命名

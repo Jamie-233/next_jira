@@ -2,7 +2,7 @@ import { Drawer, Button } from "antd";
 import { useProjectModal } from "./util";
 
 export const ProjectModal = () => {
-  const { projectModalOpen, close } = useProjectModal();
+  const { projectModalOpen, close, editProject, isLoading } = useProjectModal();
 
   return (
     <Drawer visible={projectModalOpen} width={"50%"} onClose={close}>

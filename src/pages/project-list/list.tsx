@@ -85,15 +85,8 @@ const List = ({ users, ...props }: ListProps) => {
               <Dropdown
                 overlay={
                   <Menu>
-                    <Menu.Item key={"edit"}>
-                      {/* {projectButton} */}
-                      {/* <ButtonOnPadding
-                        onClick={() => props.setProjectModalShow(true)}
-                        type={"link"}
-                      >
-                        edit
-                      </ButtonOnPadding> */}
-                    </Menu.Item>
+                    <Menu.Item key={"edit"}>Edit</Menu.Item>
+                    <Menu.Item key={"delete"}>Delete</Menu.Item>
                   </Menu>
                 }
               >
