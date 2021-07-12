@@ -5,6 +5,7 @@ import dayjs from "dayjs";
 import { Link } from "react-router-dom";
 import { useEditProject } from "utils/project";
 import { User } from "./search-panel";
+import { useProjectModal } from "./util";
 
 interface ListProps extends TableProps<Project> {
   users: User[];
@@ -24,7 +25,9 @@ export interface Project {
 const List = ({ users, ...props }: ListProps) => {
   // const { refresh } = props;
   const { mutate } = useEditProject();
+  const { startEdit } = useProjectModal();
   const pinProject = (id: number) => (pin: boolean) => mutate({ id, pin });
+  const editProject = (id: number) => () => startEdit(id);
 
   return (
     <Table
@@ -85,7 +88,9 @@ const List = ({ users, ...props }: ListProps) => {
               <Dropdown
                 overlay={
                   <Menu>
-                    <Menu.Item key={"edit"}>Edit</Menu.Item>
+                    <Menu.Item onClick={editProject(project.id)} key={"edit"}>
+                      Edit
+                    </Menu.Item>
                     <Menu.Item key={"delete"}>Delete</Menu.Item>
                   </Menu>
                 }

@@ -24,7 +24,9 @@ export const useProjectModal = () => {
     "editingProjectId",
   ]);
 
-  const { data: editProject, isLoading } = useProject(Number(editingProjectId));
+  const { data: editingProject, isLoading } = useProject(
+    Number(editingProjectId)
+  );
 
   const open = () => setProjectCreate({ projectCreate: true });
   const close = () => {
@@ -40,7 +42,7 @@ export const useProjectModal = () => {
     open,
     close,
     startEdit,
-    editProject,
+    editingProject,
     isLoading,
   };
 
