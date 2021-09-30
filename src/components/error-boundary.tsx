@@ -3,7 +3,7 @@ import React from "react";
 type FallbackRender = (props: { error: Error | null }) => React.ReactElement;
 
 export class ErrorBoundary extends React.Component<
-  React.PropsWithChildren<{ fullbackRender: FallbackRender }>,
+  React.PropsWithChildren<{ fallbackRender: FallbackRender }>,
   { error: Error | null }
 > {
   state = {
@@ -16,9 +16,9 @@ export class ErrorBoundary extends React.Component<
 
   render() {
     const { error } = this.state;
-    const { fullbackRender, children } = this.props;
+    const { fallbackRender, children } = this.props;
 
-    if (error) return fullbackRender({ error });
+    if (error) return fallbackRender({ error });
 
     return children;
   }

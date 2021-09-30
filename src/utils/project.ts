@@ -38,6 +38,7 @@ export const useEditProject = () => {
       }),
     {
       onSuccess: () => queryClient.invalidateQueries("projects"),
+      async onMutate(target) {},
     }
   );
 
